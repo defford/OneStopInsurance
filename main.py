@@ -64,7 +64,7 @@ while True:
             print("Please enter a valid option.")            
 
     while True:
-        payOption = "Full" # input(f"How would firstName like to pay (Full or Monthly)?: ").lower().title()
+        payOption = input(f"How would firstName like to pay (Full or Monthly)?: ").lower().title()
         downPayment = int(input("Enter firstName's down payment amount (Enter 0 if no down payment): "))
         if payOption in PayOptions:
             break
@@ -90,9 +90,9 @@ while True:
                 break
 
         if continuePrevClaims == "N":
-            print("-" * 40)
-            PPrint(40, (f"Previous claims for {firstName} {lastName}", "center"))
-            print("-" * 40)
+            print("+", "-" * 40, "+")
+            PPrint(40, ("|", "left"), (f"Previous claims for {firstName} {lastName}", "center"), ("|", "right"))
+            print("+", "-" * 40, "+")
             PPrint(40, ("Claim #", "left"),("Claim Date", "center"),("Amount", 40, "right"))      
             PPrint(40, ("-" * 40, "center"))  
 
@@ -140,6 +140,18 @@ while True:
         break
 
 
+# Display all output values into a nicely formatted receipt
+
+PPrint(60, ("-" * 60, "center"))
+PPrint(60, ("ONE STOP INSURANCE COMPANY", "center"))
+PPrint(60, ("-" * 60, "center"))
+PPrint(60, ("Customer Details", "center"))
+PPrint(60, ("-" * 25, "center"))
+PPrint(60, (f"{firstName} {lastName}", "left"), (f"{address}", "right"))
+PPrint(60, (f"{phoneNum}", "left"), (f"{city}, {province}  {postalCode}", "right"))
+print()
+PPrint(60, (f"# of cars: {numCars}", "left"), (f"Extra liability: {extraLiability}", "right"))
+PPrint(60, )
 
 
 
