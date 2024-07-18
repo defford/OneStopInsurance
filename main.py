@@ -64,8 +64,8 @@ while True:
             print("Please enter a valid option.")            
 
     while True:
-        payOption = input(f"How would firstName like to pay (Full or Monthly)?: ").lower().title()
-        downPayment = int(input("Enter firstName's down payment amount (Enter 0 if no down payment): "))
+        payOption = "Full" # input(f"How would firstName like to pay (Full or Monthly)?: ").lower().title()
+        downPayment = 5000 # int(input("Enter firstName's down payment amount (Enter 0 if no down payment): "))
         if payOption in PayOptions:
             break
         else:
@@ -74,15 +74,15 @@ while True:
 
     while True:
         prevClaim = []
-        claimNum = int(input(f"Enter claim number for {firstName} {lastName}: "))
-        claimDate = input(f"Enter date for claim #{claimNum}: ")
-        claimAmt = float(input("Enter the claim amount: "))
+        claimNum = 41 # int(input(f"Enter claim number for {firstName} {lastName}: "))
+        claimDate = "2024-02-02" # input(f"Enter date for claim #{claimNum}: ")
+        claimAmt = 45000.00 # float(input("Enter the claim amount: "))
         prevClaim.append([claimNum, claimDate, claimAmt])
 
         prevClaims.append(prevClaim)
         
         while True:
-            continuePrevClaims = input("Would you like to enter another claim (Y/N)?: ").upper()
+            continuePrevClaims = "N" # input("Would you like to enter another claim (Y/N)?: ").upper()
 
             if continuePrevClaims not in ["Y", "N"]:
                 print("Please enter a valid option")
@@ -90,20 +90,20 @@ while True:
                 break
 
         if continuePrevClaims == "N":
-            print("+", "-" * 40, "+")
-            PPrint(40, ("|", "left"), (f"Previous claims for {firstName} {lastName}", "center"), ("|", "right"))
-            print("+", "-" * 40, "+")
-            PPrint(40, ("Claim #", "left"),("Claim Date", "center"),("Amount", 40, "right"))      
-            PPrint(40, ("-" * 40, "center"))  
+            PPrint(46, ("+", "left"), (f"{'-' * 44}", "center"), ("+", "right"))
+            PPrint(46, ("|", "left"), (f"Previous claims for {firstName} {lastName}", "center"), ("|", "right"))
+            PPrint(46, ("+", "left"), (f"{'-' * 44}", "center"), ("+", "right"))
+            PPrint(46, ("Claim #", "left"),("Claim Date", "center"),("Amount", 46, "right"))      
+            PPrint(46, ("-" * 46, "center"))  
 
             for prevClaim in prevClaims:
                 for claimDetails in prevClaim:    
-                    PPrint(40, (f"{claimDetails[0]}", 5, "right"),(f"{claimDetails[1]}", "center"),(f"${claimDetails[2]:,.2f}", 40, "right"))
+                    PPrint(46, (f"{claimDetails[0]}", 5, "right"),(f"{claimDetails[1]}", "center"),(f"${claimDetails[2]:,.2f}", 46, "right"))
 
             print()
 
             while True:
-                confirmPrevClaims = input("Confirm previous claims entry (Y/N)?: ").upper()
+                confirmPrevClaims = "Y" # input("Confirm previous claims entry (Y/N)?: ").upper()
                 if confirmPrevClaims == "Y":
                     break
                 elif confirmPrevClaims == "N":
@@ -142,11 +142,15 @@ while True:
 
 # Display all output values into a nicely formatted receipt
 
-PPrint(60, ("-" * 60, "center"))
-PPrint(60, ("ONE STOP INSURANCE COMPANY", "center"))
-PPrint(60, ("-" * 60, "center"))
-PPrint(60, ("Customer Details", "center"))
-PPrint(60, ("-" * 25, "center"))
+print()
+PPrint(60, ("+", "left"), (f"{'-' * 58}", "center"), ("+", "right"))
+PPrint(60, ("|", "left"), ("ONE STOP INSURANCE COMPANY", "center"), ("|", "right"))
+PPrint(60, ("+", "left"), (f"{'-' * 58}", "center"), ("+", "right"))
+print()
+PPrint(60, ("+", 17), ("-" * 24, "center"), ("+", 41))
+PPrint(60, ("|", 17), ("Customer Details", "center"), ("|", 41))
+PPrint(60, ("+", 17), ("-" * 24, "center"), ("+", 41))
+print()
 PPrint(60, (f"{firstName} {lastName}", "left"), (f"{address}", "right"))
 PPrint(60, (f"{phoneNum}", "left"), (f"{city}, {province}  {postalCode}", "right"))
 print()
