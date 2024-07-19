@@ -1,3 +1,4 @@
+import math
 import datetime
 
 def sumPrevClaims(prevClaims):
@@ -50,15 +51,18 @@ def PPrint(screenWidth, *args):
 
 
 
-def AddMonths(date, interval):
+def FirstNextMonth(date):
     day = date.day
     month = date.month
     year = date.year
 
     # Calculate the new month and year
-    month += interval
+    if month < 12:
+        month += 1
 
-    if month > 12:
+    elif month >= 12:
+        month += 1
+        month -= 12
         year += 1
 
     newDate = datetime.datetime(year, month, day)

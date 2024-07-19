@@ -1,6 +1,6 @@
 # Add in needed libraries
 import datetime
-from functions import PPrint, AddMonths
+from functions import PPrint, FirstNextMonth
 
 # 
 with open("Const.dat", "r") as f:
@@ -71,8 +71,8 @@ while True:
             print("Please enter a valid option.")            
 
     while True:
-        payOption = "Full" # input(f"How would firstName like to pay (Full or Monthly)?: ").lower().title()
-        downPayment = 5000 # int(input("Enter firstName's down payment amount (Enter 0 if no down payment): "))
+        payOption = "Monthly" # input(f"How would firstName like to pay (Full or Monthly)?: ").lower().title()
+        downPayment = 500 # int(input("Enter firstName's down payment amount (Enter 0 if no down payment): "))
         if payOption in PayOptions:
             break
         else:
@@ -123,7 +123,7 @@ while True:
 
     # Perform calculations
 
-    premiumCost = BASIC_PREM + BASIC_PREM * ADD_CAR_DISCOUNT * (numCars - 1)
+    premiumCost = BASIC_PREM + BASIC_PREM * (1 - ADD_CAR_DISCOUNT) * (numCars - 1)
 
     totalExtraCost = 0
     totalExtraCost += EXTRA_LIABILITY_COST * numCars if extraLiability == "Y" else 0
@@ -136,11 +136,13 @@ while True:
 
     totalCost = totalInsurancePremium + hstCost
 
+    if downPayment > totalCost:
+        downPayment = float(input(f"Please enter a down payment less than ${totalCost:,.2f}: "))
     totalOwing = totalCost - downPayment
 
     monthlyPayment = (totalOwing + PROCESSING_FEE) / 8
     
-    firstPaymentDate = AddMonths(curDate, 1)
+    firstPaymentDate = FirstNextMonth(curDate)
 
     continueScript = input("Do you want to continue (Y/N)?: ").upper()
     if continueScript == "N":
@@ -154,17 +156,20 @@ PPrint(60, ("+", "left"), (f"{'-' * 58}", "center"), ("+", "right"))
 PPrint(60, ("|", "left"), ("ONE STOP INSURANCE COMPANY", "center"), ("|", "right"))
 PPrint(60, ("+", "left"), (f"{'-' * 58}", "center"), ("+", "right"))
 print()
-PPrint(60, ("+", 17), ("-" * 24, "center"), ("+", 41))
-PPrint(60, ("|", 17), ("Customer Details", "center"), ("|", 41))
-PPrint(60, ("+", 17), ("-" * 24, "center"), ("+", 41))
+# PPrint(60, ("+", 17), ("-" * 24, "center"), ("+", 41))
+PPrint(60, ("CUSTOMER DETAILS", "center"))
+# PPrint(60, ("-" * 20, "center"))
+print()
 PPrint(60, (f"Policy #: {POLICY_NUM}", "left"), (f"Date: {curDateDsp}", "right"))
 print()
 PPrint(60, (f"{firstName} {lastName}", "left"), (f"{address}", "right"))
 PPrint(60, (f"{phoneNum}", "left"), (f"{city}, {province}  {postalCode}", "right"))
 print()
-PPrint(60, ("+", 14), ("-" * 30, "center"), ("+", 45))
-PPrint(60, ("|", 14), (f"Policy Coverage Details", "center"), ("|", 45))
-PPrint(60, ("+", 14), ("-" * 30, "center"), ("+", 45))
+print()
+# PPrint(60, ("+", 14), ("-" * 30, "center"), ("+", 45))
+PPrint(60, (f"POLICY COVERAGE DETAILS", "center"))
+# PPrint(60, ("+", 14), ("-" * 30, "center"), ("+", 45))
+print()
 print()
 PPrint(60, ("Extra", 12), ("Glass", 30), ("Loaner Car", 50))
 PPrint(60, ("Car #", "left"), ("Liability", 12), ("Coverage", 30), ("Coverage", 50))
@@ -175,17 +180,48 @@ for carNum in range(1, numCars + 1):
 print("-" * 60)
 
 print()
-PPrint(60, ("+", 14), ("-" * 30, "center"), ("+", 45))
-PPrint(60, ("|", 14), (f"Payment Details", "center"), ("|", 45))
-PPrint(60, ("+", 14), ("-" * 30, "center"), ("+", 45))
+print()
+# PPrint(60, ("+", 14), ("-" * 30, "center"), ("+", 45))
+PPrint(60, (f"PAYMENT DETAILS", "center"))
+# PPrint(60, ("+", 14), ("-" * 30, "center"), ("+", 45))
+print()
 print()
 PPrint(60, (f"Premium for {numCars} vehicles:", "left"), (f"${premiumCost:,.2f}", "right"))
 PPrint(60, (f"Extra coverage costs:", "left"), (f"${totalExtraCost:,.2f}", "right"))
 PPrint(60, (f"{'-' * 25}", "left"), (f"{'-' * 10}", "right"))
-PPrint(60, ("Total costs:", "left"), (f"${totalInsurancePremium:,.2f}", "right"))
+PPrint(60, ("Subtotal:", "left"), (f"${totalInsurancePremium:,.2f}", "right"))
 PPrint(60, ("HST:", "left"), (f"${hstCost:,.2f}", "right"))
 PPrint(60, (f"{'-' * 25}", "left"), (f"{'-' * 10}", "right"))
 PPrint(60, ("Total:", "left"), (f"${totalCost:,.2f}", "right"))
+print()
+PPrint(60, (f"Payment Option:", "left"), (f"{payOption}", "right"))
+PPrint(60, (f"Down payment:", "left"), (f"-${downPayment:,.2f}", "right"))
+
+PPrint(60, (f"{'-' * 25}", "left"), (f"{'-' * 10}", "right"))
+PPrint(60, ("Total Owing:", "left"), (f"${totalOwing:,.2f}", "right"))
+if payOption == "Monthly":
+    PPrint(60, ("Processing Fee:", "left"), (f"${PROCESSING_FEE:,.2f}", "right"))
+    print()
+    PPrint(60, ("Monthly Payment:", "left"), (f"${monthlyPayment:,.2f}", "right"))
+    PPrint(60, ("First Payment Due:", "left"), (f"{firstPaymentDate.date()}", "right"))
+print("-" * 60)
+print()
+PPrint(60, (f"PREVIOUS CLAIMS" , "center"))
+print()
+PPrint(60, ("Claim #", "left"),("Claim Date", "center"),("Amount", 60, "right"))      
+PPrint(60, ("-" * 60, "center"))  
+
+for prevClaim in prevClaims:
+    for claimDetails in prevClaim:    
+        PPrint(60, (f"{claimDetails[0]}", 5, "right"),(f"{claimDetails[1]}", "center"),(f"${claimDetails[2]:,.2f}", 60, "right"))
+
+print("-" * 60)
+print()
+PPrint(60, ("Thank You For Choosing One Stop Insurance!", "center"))
+print()
+print()
+
+
 # Payment Method
 # Down Deposit
 # HST
