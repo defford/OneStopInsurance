@@ -18,6 +18,7 @@ HST_RATE = float(fList[6])
 PROCESSING_FEE = float(fList[7])
 
 curDate = datetime.datetime.now()
+curDateDsp = curDate.strftime("%Y-%m-%d")
 
 provinces = ["AB", "BC", "MB", "NB", "NL", "NS", "NT", "NU", "ON", "PE", "QC", "SK", "YT"]
 PayOptions = ["Full", "Monthly"]
@@ -40,21 +41,27 @@ while True:
     postalCode = "A2B 1G8" # input("Enter customer's postal code: ").upper()
     phoneNum = "709-727-0484" # input("Enter customer's phone number: ")
     numCars = 3 # int(input("How many cars are being added to insurance?: "))
+    carCoverageDetails = []
 
-    while True:
-        extraLiability = "N" # input(f"Does {firstName} need extra Liability (Y/N)? ").upper()
-        if extraLiability == "Y" or extraLiability == "N":
-            break
-        else:
-            print("Please enter a valid option.")
-    
-    
-    while True:
-        glassCoverage = "N" # input(f"Does {firstName} need glass coverage (Y/N)?: ").upper()
-        if glassCoverage == "Y" or glassCoverage == "N":
-            break
-        else:
-            print("Please enter a valid option.")
+    for carNum in range(1, numCars + 1):
+        while True:
+
+            extraLiability = "N" # input(f"Does {firstName} need extra Liability (Y/N)? ").upper()
+            if extraLiability == "Y" or extraLiability == "N":
+                break
+            else:
+                print("Please enter a valid option.")
+        
+        while True:
+            glassCoverage = "N" # input(f"Does {firstName} need glass coverage (Y/N)?: ").upper()
+            if glassCoverage == "Y" or glassCoverage == "N":
+                break
+            else:
+                print("Please enter a valid option.")
+        
+        carCoverageDetails.append((carNum, extraLiability, glassCoverage))
+
+    print(carCoverageDetails)
 
     while True:
         loanerCar = "Y" # input(f"Does {firstName} need a loaner (Y/N)?: ").upper()
@@ -123,7 +130,7 @@ while True:
     totalExtraCost += GLASS_COST * numCars if glassCoverage == "Y" else 0
     totalExtraCost += LOANER_CAR_COST * numCars if loanerCar == "Y" else 0
 
-    totalInsurancePremium = totalExtraCost + totalExtraCost
+    totalInsurancePremium = premiumCost + totalExtraCost
 
     hstCost = totalInsurancePremium * HST_RATE
 
@@ -150,20 +157,44 @@ print()
 PPrint(60, ("+", 17), ("-" * 24, "center"), ("+", 41))
 PPrint(60, ("|", 17), ("Customer Details", "center"), ("|", 41))
 PPrint(60, ("+", 17), ("-" * 24, "center"), ("+", 41))
+PPrint(60, (f"Policy #: {POLICY_NUM}", "left"), (f"Date: {curDateDsp}", "right"))
 print()
 PPrint(60, (f"{firstName} {lastName}", "left"), (f"{address}", "right"))
 PPrint(60, (f"{phoneNum}", "left"), (f"{city}, {province}  {postalCode}", "right"))
 print()
-PPrint(60, (f"# of cars: {numCars}", "left"), (f"Extra liability: {extraLiability}", "right"))
-PPrint(60, )
+PPrint(60, ("+", 14), ("-" * 30, "center"), ("+", 45))
+PPrint(60, ("|", 14), (f"Policy Coverage Details", "center"), ("|", 45))
+PPrint(60, ("+", 14), ("-" * 30, "center"), ("+", 45))
+print()
+PPrint(60, ("Extra", 12), ("Glass", 30), ("Loaner Car", 50))
+PPrint(60, ("Car #", "left"), ("Liability", 12), ("Coverage", 30), ("Coverage", 50))
+print("-" * 60)
 
+for carNum in range(1, numCars + 1):
+    PPrint(60, (f"{carNum}", 2), (f"{extraLiability}", 15), (f"{glassCoverage}", 33), (f"{loanerCar}", 54))
+print("-" * 60)
 
+print()
+PPrint(60, ("+", 14), ("-" * 30, "center"), ("+", 45))
+PPrint(60, ("|", 14), (f"Payment Details", "center"), ("|", 45))
+PPrint(60, ("+", 14), ("-" * 30, "center"), ("+", 45))
+print()
+PPrint(60, (f"Premium for {numCars} vehicles:", "left"), (f"${premiumCost:,.2f}", "right"))
+PPrint(60, (f"Extra coverage costs:", "left"), (f"${totalExtraCost:,.2f}", "right"))
+PPrint(60, (f"{'-' * 25}", "left"), (f"{'-' * 10}", "right"))
+PPrint(60, ("Total costs:", "left"), (f"${totalInsurancePremium:,.2f}", "right"))
+PPrint(60, ("HST:", "left"), (f"${hstCost:,.2f}", "right"))
+PPrint(60, (f"{'-' * 25}", "left"), (f"{'-' * 10}", "right"))
+PPrint(60, ("Total:", "left"), (f"${totalCost:,.2f}", "right"))
+# Payment Method
+# Down Deposit
+# HST
+# Total Premium
+# Total Extra Costs
+# Total Insurance Prem
+# HST
+# Total Cost
+# (If Monthly) Monthly Payment
+# (If Full) Payment Owed
+# Pay method = Monthly, so show 
 
-    # print(f"Policy #: {POLICY_NUM}\n"
-    #     f"Basic Premium: {BASIC_PREM}\n"
-    #     f"Addition Car Discount: {ADD_CAR_DISCOUNT}\n"
-    #     f"Extra Liability Cost: {EXTRA_LIABILITY_COST}\n"
-    #     f"Glass Coverage Cost: {GLASS_COST}\n"
-    #     f"Loaner Car Cost: {LOANER_CAR_COST}\n"
-    #     f"HST Rate: {HST_RATE}\n"
-    #     f"Processing Fee: {PROCESSING_FEE}\n")
