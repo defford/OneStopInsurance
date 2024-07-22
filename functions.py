@@ -1,5 +1,6 @@
 import math
 import datetime
+import time
 
 def sumPrevClaims(prevClaims):
     sum = 0
@@ -52,7 +53,7 @@ def PPrint(screenWidth, *args):
 
 
 def FirstNextMonth(date):
-    day = date.day
+    day = 1
     month = date.month
     year = date.year
 
@@ -68,3 +69,27 @@ def FirstNextMonth(date):
     newDate = datetime.datetime(year, month, day)
     
     return newDate
+
+def WaitSave(wait):
+    time.sleep(wait)
+    print("SAVING...")
+
+def ProgressBar(iteration, total, prefix='', suffix='', decimals=1, length=50, fill='█', printEnd="\r"):
+    percent = ("{0:." + str(decimals) + "f}").format(100 * (iteration / float(total)))
+    filledLength = int(length * iteration // total)
+    bar = fill * filledLength + '-' * (length - filledLength)
+    print(f'\r{prefix} |{bar}| {percent}% {suffix}', end=printEnd, flush=True)
+    if iteration == total:
+        print()
+
+def SaveToFileBar(items, filePath, filePathAlias):
+    total_items = len(items)
+    prefix = 'Saving...'
+    suffix = 'Complete'
+    length = 50
+
+    with open(filePath, "a") as filePathAlias:
+        for i, item in enumerate(items, start=1):
+            filePathAlias.write(f"{item}, ")
+            ProgressBar(i, total_items, prefix=prefix, suffix=suffix, length=length)
+            time.sleep(0.1)
