@@ -1,6 +1,7 @@
 import math
 import datetime
 import time
+import sys
 
 def sumPrevClaims(prevClaims):
     sum = 0
@@ -74,6 +75,8 @@ def WaitSave(wait):
     time.sleep(wait)
     print("SAVING...")
 
+
+# Saving is tied to the progress bar so that both are done at the same time
 def ProgressBar(iteration, total, prefix='', suffix='', decimals=1, length=50, fill='█', printEnd="\r"):
     percent = ("{0:." + str(decimals) + "f}").format(100 * (iteration / float(total)))
     filledLength = int(length * iteration // total)
@@ -90,6 +93,24 @@ def SaveToFileBar(items, filePath, filePathAlias):
 
     with open(filePath, "a") as filePathAlias:
         for i, item in enumerate(items, start=1):
-            filePathAlias.write(f"{item}, ")
+            if i == total_items:
+                filePathAlias.write(f"{item}")
+            else:
+                filePathAlias.write(f"{item}, ")
             ProgressBar(i, total_items, prefix=prefix, suffix=suffix, length=length)
             time.sleep(0.1)
+
+def WaitingMessage(content, space):
+
+    ogContent = content
+
+    seconds = 10
+    for dot in range(1, seconds + 1):
+        sys.stdout.write('\r' + (" " * space) + content)
+        sys.stdout.flush()
+
+        time.sleep(0.2)
+        content += "."
+
+        if len(content) > len(ogContent) + 3:
+            content = ogContent
