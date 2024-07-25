@@ -1,4 +1,4 @@
-'# One Stop Insurance Program
+# One Stop Insurance Program
 
 ## Overview
 
@@ -41,7 +41,7 @@ The following default values are read from a file called `Const.dat`:
 
 ## Functions
 
-The program includes at least three functions, including a new function added to the `FormatValues.py` library. One of the functions returns multiple values.
+The program includes at least three functions, including a new function added to the `functions.py` library. One of the functions returns multiple values.
 
 ## Calculations
 
