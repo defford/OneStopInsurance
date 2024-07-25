@@ -30,9 +30,8 @@ The following default values are read from a file called `Const.dat`:
 
 ## Requirements
 
-- Python 3.x
-- A `Const.dat` file containing the default values.
-- The `functions.py` file containing the necessary functions for the program.
+- Python 3.8 or later
+
 
 ## Input Validation
 

@@ -1,7 +1,7 @@
 #  Title: Policy Entry Program for One Stop Insurance Company
 #  Description: This program allows a One Stop employee to enter in new customer information (policy coverage, previous claims) and then display a receipt at the end
 #  By: Daniel Efford
-#  Date: Jul 18 - Jul 25
+#  Date: Jul 18 - Jul 24
 
 # Add in needed libraries
 import datetime
@@ -187,6 +187,7 @@ while True:
             totalOwing = totalCost - downPayment
             monthlyPayment = (totalOwing + PROCESSING_FEE) / 8      
 
+            # Previous Claims Input Section
             while True:
 
                 prevClaimsOption = input(f"Would you like to enter previous claims information for {firstName} {lastName} (Y/N)?: ").upper()
