@@ -57,9 +57,7 @@ The program includes at least three functions, including a new function added to
 ## Usage
 
 1. Ensure you have Python 3.x installed on your system.
-2. Create a `Const.dat` file with the default values separated by commas.
-3. Place the `functions.py` file in the same directory as your main script.
-4. Run the main script.
-5. Follow the prompts to enter customer details and insurance options.
-6. Review the formatted receipt and previous claims.
-7. Confirm the information to save the policy data.
+2. Run the main script.
+3. Follow the prompts to enter customer details and insurance options.
+4. Review the formatted receipt and previous claims.
+5. Confirm the information to save the policy data.
