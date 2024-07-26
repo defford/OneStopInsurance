@@ -1,3 +1,9 @@
+# QAP 4 - Daniel Efford
+
+This repository is my submission for QAP 4. That main directory is meant to serve the Python portion. If your name is Peter and you are looking for the JS portion, you can find it in the folder named "JS".
+
+Hope you have a great day!
+
 # One Stop Insurance Program
 
 ## Overview
