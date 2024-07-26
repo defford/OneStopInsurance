@@ -1,7 +1,7 @@
 #  Title: Policy Entry Program for One Stop Insurance Company
 #  Description: This program allows a One Stop employee to enter in new customer information (policy coverage, previous claims) and then display a receipt at the end
 #  By: Daniel Efford
-#  Date: Jul 18 - Jul 24
+#  Date: Jul 18 - Jul 25
 
 # Add in needed libraries
 import datetime
@@ -9,6 +9,7 @@ import sys
 import time
 from functions import PPrint, FirstNextMonth, WaitSave, ProgressBar, SaveToFileBar, WaitingMessage
 
+# Main Loop for Policy Entry
 while True:
 
     # 
@@ -71,6 +72,7 @@ while True:
             postalCode = input("Enter customer's postal code (X0X 0X0): ").upper()
             phoneNum = input("Enter customer's phone number (000-000-0000): ")
 
+            # Capture Car Coverage information
             print()
             print(f"Entering car coverage information...")            
             time.sleep(1)
@@ -122,6 +124,7 @@ while True:
                     carCoverageDetails.append([POLICY_NUM, carNum, extraLiability, glassCoverage, loanerCar])
                     time.sleep(1)
 
+                # Display car coverage details for review
                 print()
                 PPrint(60, ("Please review the following coverage details...", 6))
                 print()
@@ -281,7 +284,7 @@ while True:
             cd.close()
 
 
-            # Display all output values into a nicely formatted receipt
+            # Display all output values into a formatted receipt
             print()
             WaitingMessage(f"Generating Report for Policy # {POLICY_NUM} ({firstName} {lastName})", 6)            
             time.sleep(1.5)
@@ -353,6 +356,7 @@ while True:
 
             print()
 
+            # Check if user would like to enter another policy
             continueScript = input("Do you want to add another policy (Y/N)?: ").upper()
             
             if continueScript == "N":
